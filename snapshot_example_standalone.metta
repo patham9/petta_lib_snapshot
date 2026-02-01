@@ -12,4 +12,4 @@
    (fib-tr $n 0 1))
 
 ;Start computation:
-!(CallWithSnapshots (fib 1000) 300)
+!(CallWithSnapshotInterval (fib 1000) 300)

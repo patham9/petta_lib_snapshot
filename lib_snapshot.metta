@@ -38,9 +38,9 @@
                           ;continue computation:
                           (CallWithSnapshotsInternal $cont $var))))))
 
-(: CallWithSnapshots (-> Expression Atom Atom))
-(= (CallWithSnapshots $G $Limit)
-   (progn (add-atom &self (= (SnapshotInterval) $Limit))
+(: CallWithSnapshotInterval (-> Expression Atom Atom))
+(= (CallWithSnapshotInterval $G $Inferences)
+   (progn (add-atom &self (= (SnapshotInterval) $Inferences))
           (ResetSnapshotInterval)
           (collapse (InjectSnapshot))
           (let $ext (Predicate (union-atom $G ($X)))
