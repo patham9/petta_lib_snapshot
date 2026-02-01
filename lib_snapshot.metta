@@ -6,9 +6,11 @@
 
 (= (BudgetLimit) (empty))
 
+(= (NoBudgetCheck) (empty))
+
 (= (BudgetLimitCheck)
    (if (> (- (statistics inferences) (get-state &initinferences)) (BudgetLimit))
-       (translatePredicate (shift (pay-for-inferences)))
+       (catch (translatePredicate (shift (pay-for-inferences))))
        True))
 
 (= (ResetBudgetLimit)
@@ -18,8 +20,9 @@
 (= (InjectBudgetLimitCheck)
    (match &self $func (let (cons = ($head $body)) $func
                            (if (not (is-member (car-atom $head)
-                                               (quote (BudgetLimit BudgetLimitCheck ResetBudgetLimit InjectBudgetLimitCheck
-                                                       CallWithSnapshotsInternal CallWithSnapshots ResumeComputation))))
+                                               (append (collapse (NoBudgetCheck))
+                                                       (quote (NoBudgetCheck BudgetLimit BudgetLimitCheck ResetBudgetLimit InjectBudgetLimitCheck
+                                                               CallWithSnapshotsInternal CallWithSnapshots ResumeComputation)))))
                                (progn (remove-atom &self $func)
                                       (add-atom &self (= $head (progn (BudgetLimitCheck) $body))))))))
 
