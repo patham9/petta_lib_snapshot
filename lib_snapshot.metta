@@ -22,7 +22,7 @@
                            (if (not (is-member (car-atom $head)
                                                (append (collapse (NoSnapshotFor))
                                                        (quote (NoSnapshotFor SnapshotInterval Snapshot ResetSnapshotInterval InjectSnapshot
-                                                               CallWithSnapshotsInternal CallWithSnapshots ResumeComputation)))))
+                                                               CallWithSnapshotsInternal CallWithSnapshotInterval ResumeComputation)))))
                                (progn (remove-atom &self $func)
                                       (add-atom &self (= $head (progn (Snapshot) $body))))))))
 
