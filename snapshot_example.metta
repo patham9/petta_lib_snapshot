@@ -1,3 +1,5 @@
+!(import! &self (library lib_import))
+!(git-import! "https://github.com/patham9/petta_lib_snapshot.git")
 !(import! &self (library lib_snapshot))
 
 ;Functions as usual:
