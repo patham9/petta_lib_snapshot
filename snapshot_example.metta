@@ -11,5 +11,8 @@
 (= (fib $n)
    (fib-tr $n 0 1))
 
+;Inject snapshot points:
+!(InjectSnapshots)
+
 ;Start computation:
 !(CallWithSnapshotInterval (fib 1000000) 200000)

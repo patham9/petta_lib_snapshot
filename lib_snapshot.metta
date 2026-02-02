@@ -16,14 +16,14 @@
 (= (ResetSnapshotInterval)
    (change-state! &initinferences (statistics inferences)))
 
-(= (InjectSnapshot)
-   (match &self $func (let (cons = ($head $body)) $func
-                           (if (not (is-member (car-atom $head)
-                                               (append (collapse (NoSnapshotFor))
-                                                       (quote (NoSnapshotFor SnapshotInterval Snapshot ResetSnapshotInterval InjectSnapshot
-                                                               CallWithSnapshotsInternal CallWithSnapshotInterval ResumeComputation)))))
-                               (progn (remove-atom &self $func)
-                                      (add-atom &self (= $head (progn (Snapshot) $body))))))))
+(= (InjectSnapshots)
+   (collapse (match &self $func (let (cons = ($head $body)) $func
+                                     (if (not (is-member (car-atom $head)
+                                                         (append (collapse (NoSnapshotFor))
+                                                                 (quote (NoSnapshotFor SnapshotInterval Snapshot ResetSnapshotInterval InjectSnapshots
+                                                                         CallWithSnapshotsInternal CallWithSnapshotInterval ResumeComputation)))))
+                                         (progn (remove-atom &self $func)
+                                                (add-atom &self (= $head (progn (Snapshot) $body)))))))))
 
 (= (CallWithSnapshotsInternal $predicate $var)
    (let $cont (reset $predicate $signal)
@@ -41,7 +41,6 @@
 (= (CallWithSnapshotInterval $G $Inferences)
    (progn (add-atom &self (= (SnapshotInterval) $Inferences))
           (ResetSnapshotInterval)
-          (collapse (InjectSnapshot))
           (let $ext (Predicate (union-atom $G ($X)))
                (CallWithSnapshotsInternal $ext $X))))
 
