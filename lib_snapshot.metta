@@ -14,8 +14,7 @@
        True))
 
 (= (ResetSnapshotInterval)
-   (progn (change-state! &initinferences (statistics inferences))
-          (change-state! &inferenceslimit $N)))
+   (change-state! &initinferences (statistics inferences)))
 
 (= (InjectSnapshot)
    (match &self $func (let (cons = ($head $body)) $func
